@@ -1,0 +1,28 @@
+name: Build Project Upload Artifact
+
+on: 
+  push:
+    branches:
+      - main
+      - feature-stuff
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4.1.0
+        with:
+          dotnet-version: '9' #specify the .NET version as a string
+          
+      - name: Build Project
+        run: dotnet publish Program.cs --output ./build #publich output to ./build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: build-artifact
+          path: ./build
