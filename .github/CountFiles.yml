@@ -1,0 +1,15 @@
+name: CountFiles
+
+on: workflow_dispatch
+
+jobs:
+    count-txt-files:
+      runs-on: ubuntu-lates
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Count Files
+        run: |
+          FILE_COUNT=$(find . -name "*.txt" | wc -1)
+            echo "Number of .txt files: $FILE_COUNT"
